@@ -1,0 +1,148 @@
+{
+    "infos_generales": {
+        "lundi_semaine_0": "",
+        "vacances": {
+            "automne": {
+                "date_debut": "",
+                "date_fin": ""
+            },
+            "noel":{
+                "date_debut": "",
+                "date_fin": "" 
+            },
+            "carnaval":{
+                "date_debut": "",
+                "date_fin": ""
+            },
+            "paques":{
+                "date_debut": "",
+                "date_fin": ""
+            },
+            "ete": {
+                "date_debut": "",
+                "date_fin": ""
+            }
+        },
+        "jours_feries":{
+            "toussaint": {
+                "date_debut": "",
+                "date_fin": ""
+            },
+            "immaculee_conception":{
+                "date_debut":"",
+                "date_fin": ""
+            },
+            "ascension": {
+                "date_debut": "",
+                "date_fin": ""
+            },
+            "pentecote": {
+                "date_debut": "",
+                "date_fin": ""
+            },
+            "fete-dieu":{
+                "date_debut": "",
+                "date_fin": ""
+            }
+        }
+
+    },
+    "classes": {
+        "gymnase": {
+            "infos_generales": {
+                "url_moodle": "",
+                "url_jupyterhub": ""
+            },
+        
+            "1gy": {
+                "1gy1": {
+                    "nb_eleves": 0,
+                    "cours_1": {
+                        "jour": "",
+                        "heure_debut": "",
+                        "heure_fin": "",
+                        "salle": ""
+                    },
+                    "cours_2": {
+                        "jour": "",
+                        "heure_debut": "",
+                        "heure_fin": "",
+                        "salle": ""
+                    }
+                },
+                "1gy2": {},
+                "1gy3": {},
+                "1gy4": {},
+                "1gy5": {},
+                "1gy6": {},
+                "1gy7": {},
+                "1gy8": {},
+                "1gy9": {},
+                "1gy10": {},
+                "1gy11": {},
+                "1gy12": {},
+                "1gy13": {},
+                "1gy14": {}
+
+            },
+            "2gy": {
+                "2gy1": {},
+                "2gy2": {},
+                "2gy3": {},
+                "2gy4": {},
+                "2gy5": {},
+                "2gy6": {},
+                "2gy7": {},
+                "2gy8": {},
+                "2gy9": {},
+                "2gy10": {},
+                "2gy11": {},
+                "2gy12": {},
+                "2gy13": {},
+                "2gy14": {}
+            }
+        },
+        "ecg": {
+            "1ecg": {
+                "1ecg1": {},
+                "1ecg2": {},
+                "1ecg3": {},
+                "1ecg4": {},
+                "1ecg5": {},
+                "1ecg6": {},
+                "1ecg7": {},
+                "1ecg8": {},
+                "1ecg9": {},
+                "1ecg10": {},
+                "1ecg11": {},
+                "1ecg12": {},
+                "1ecg13": {},
+                "1ecg14": {}
+            },
+
+            "2ecg": {
+                "2ecg1": {},
+                "2ecg2": {},
+                "2ecg3": {},
+                "2ecg4": {},
+                "2ecg5": {},
+                "2ecg6": {},
+                "2ecg7": {},
+                "2ecg8": {},
+                "2ecg9": {},
+                "2ecg10": {},
+                "2ecg11": {},
+                "2ecg12": {},
+                "2ecg13": {},
+                "2ecg14": {}
+            }
+            
+                       
+        },
+        "ec": {
+            "2ec1": {},
+            "2ec2": {},
+            "3ec2": {}
+        }
+    }
+}
