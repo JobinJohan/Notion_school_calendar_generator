@@ -11,11 +11,9 @@ from ui.app import *
 
 def main():
 
+    # Create app GUI
     app_gui = AppUI()
-
-
     
-
     # Load environment variables (Notion API Key)
     load_dotenv()
     NOTION_API_KEY = os.getenv("NOTION_API_KEY")

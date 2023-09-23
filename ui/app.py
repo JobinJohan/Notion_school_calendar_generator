@@ -1,6 +1,8 @@
 from tkinter import *
 from ui.menu import *
 from typing import Type
+from typing import Callable
+from config.config import *
 
 class AppUI():
     
@@ -35,16 +37,14 @@ class AppUI():
         self.title_frame = Frame(self.root, bg=self.blue, width=self.window_width, height=self.window_height*0.2)
         self.title_frame.pack(side=TOP)
 
-        # Title label of the TITLE frame
-        self.change_title("Générateur de calendriers Notion")
+
+        # Config
+        self.config = Config()
 
         # Content frame
         self.content_frame = Frame(self.root, bg=self.white, width=self.window_width, height=self.window_height*0.8)
         self.content_frame.pack(side=TOP)
         self.display_content("landing_page")
-
-        # Config
-        self.config = Config()
 
         self.root.mainloop()
 
@@ -56,24 +56,35 @@ class AppUI():
         self.title_label = Label(self.title_frame, text=title, bg=self.blue, font=self.font_title, fg=self.white)
         self.title_label.pack(ipady=(self.window_height*0.2)//2)
         self.title_frame.pack_propagate(False)
-    
+
+    def execute_and_redirect(self, function: Callable, page: str) -> None:
+        if function():
+            self.display_content(page)
+        
     def display_content(self, page: str) -> None:
         # Reset content frame
         for widget in self.content_frame.winfo_children():
-                    widget.destory()
+            widget.destroy()
+
+        # Reset title frame
+        for widget in self.title_frame.winfo_children():
+            widget.destroy()
 
         match page:
             case "landing_page":
-                # Display two buttons:
-                # Left button to load an existing configuration file
-                # Right button to creating)
+                # Title
+                self.change_title("Générateur de calendriers Notion")
+
+                # Content
                 left_button = Button(self.content_frame, text="Charger une configuration existante", bg=self.blue, font=self.font_content, command=self.menu.open_file, fg=self.white)
-                right_button = Button(self.content_frame, text="Créer une configuration vide", bg=self.blue, font=self.font_content, fg=self.white)
+                right_button = Button(self.content_frame, text="Créer une configuration vide", bg=self.blue, font=self.font_content, fg=self.white, command=lambda: self.execute_and_redirect(self.config.init_config_from_empty_config, "json_editor"))
                 left_button.place(x=150, y=(self.window_height*0.8)//2)
                 right_button.place(x=self.window_width-400, y=(self.window_height*0.8)//2)
 
             case "json_editor":
-                pass
+                 # Title
+                self.change_title("Editeur de configuration")
+
             case "calendar_creation":
                 pass
 

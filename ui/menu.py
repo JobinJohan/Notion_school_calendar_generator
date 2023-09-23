@@ -35,14 +35,13 @@ class MenuApp():
 
     def open_file(self)-> None:
         file_path = filedialog.askopenfilename()
-        self.app.config= Config(file_path)
-        if self.app.config.load_valid_config():
-            print("Config valide")
-        else:
-            print("Config non valide")
-        # if file_path:
-        #     with open(file_path, "r") as file:
-        #         content = file.read()
+        self.app.config= Config()
+
+        if self.app.config.load_config_if_valid(file_path):
+            self.app.display_content("json_editor")
+            
+        
+
 
     def save_file(self)-> None:
         file_path = filedialog.asksaveasfilename(defaultextension=".txt")

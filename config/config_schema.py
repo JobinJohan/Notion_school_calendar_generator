@@ -31,6 +31,14 @@ schema = {
                 "salle": { "type": "string" }
             },
             "required": ["jour", "heure_debut", "heure_fin", "salle"]
+        },
+        "MoodleAndJupyter": {
+            "type": "object",
+            "properties": {
+                "url_moodle": { "type": "string" },
+                "url_jupyterhub": { "type": "string" }
+            },
+            "required" : ["url_moodle"]
         }
     },
     "type": "object",
@@ -63,28 +71,26 @@ schema = {
                 }
             }
         },
-        "classes": {
+        "niveaux": {
             "type": "object",
             "properties": {
                 "gymnase": {
                     "type": "object",
                     "properties": {
-                        "infos_generales": {
-                            "type": "object",
-                            "properties": {
-                                "url_moodle": { "type": "string" },
-                                "url_jupyterhub": { "type": "string" }
-                            },
-                            "required": ["url_moodle", "url_jupyterhub"]
-                        },
                         "1gy": {
                             "type": "object",
+                            "properties": {
+                                "infos_generales": {"$ref": "#/$defs/MoodleAndJupyter"},
+                            },
                             "patternProperties": {
                                 "^1gy\d{1,2}$": { "$ref": "#/$defs/ClassInfo" }
                             }
                         },
                         "2gy": {
                             "type": "object",
+                            "properties": {
+                                "infos_generales": {"$ref": "#/$defs/MoodleAndJupyter"},
+                            },
                             "patternProperties": {
                                 "^2gy\d{1,2}$": { "$ref": "#/$defs/ClassInfo" }
                             }
@@ -96,12 +102,18 @@ schema = {
                     "properties": {
                         "1ecg": {
                             "type": "object",
+                            "properties": {
+                                "infos_generales": {"$ref": "#/$defs/MoodleAndJupyter"},
+                            },
                             "patternProperties": {
                                 "^1ecg\d{1,2}$": { "$ref": "#/$defs/ClassInfo" }
                             }
                         },
                         "2ecg": {
                             "type": "object",
+                            "properties": {
+                                "infos_generales": {"$ref": "#/$defs/MoodleAndJupyter"},
+                            },
                             "patternProperties": {
                                 "^2ecg\d{1,2}$": { "$ref": "#/$defs/ClassInfo" }
                             }
@@ -110,9 +122,27 @@ schema = {
                 },
                 "ec": {
                     "type": "object",
-                    "patternProperties": {
-                        "^2ec\d{1,2}$": { "$ref": "#/$defs/ClassInfo" }
-                    }
+                    "properties": {
+                        "2ec":{
+                            "type": "object",
+                            "properties": {
+                                "infos_generales": {"$ref": "#/$defs/MoodleAndJupyter"},
+                            },
+                            "patternProperties": {
+                                "^2ec\d{1,2}$": { "$ref": "#/$defs/ClassInfo" }
+                            }
+                        },
+
+                        "3ec": {
+                            "type": "object",
+                            "properties": {
+                                "infos_generales": {"$ref": "#/$defs/MoodleAndJupyter"},
+                            },
+                            "patternProperties": {
+                                "^3ec\d{1,2}$": { "$ref": "#/$defs/ClassInfo" }
+                            }
+                        }
+                    },
                 }
             }
         }
