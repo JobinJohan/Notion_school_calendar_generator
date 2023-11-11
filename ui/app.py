@@ -1,5 +1,6 @@
 from tkinter import *
 from ui.menu import *
+from jsoneditor.editor import JsonEditor
 from typing import Type
 from typing import Callable
 from config.config import *
@@ -84,6 +85,15 @@ class AppUI():
             case "json_editor":
                  # Title
                 self.change_title("Editeur de configuration")
+
+                # Add JSON editor
+                editor = JsonEditor(self.content_frame, self.config.config)
+                
+                # Add buttons
+                left_button = Button(self.content_frame, text="Revenir en arrière", bg=self.blue, font=self.font_content, command=self.menu.open_file, fg=self.white)
+                right_button = Button(self.content_frame, text="Sauvegarder configuration", bg=self.blue, font=self.font_content, fg=self.white, command=lambda: self.execute_and_redirect(self.config.init_config_from_empty_config, "json_editor"))
+                left_button.place(x=150, y=(self.window_height*0.8)//2)
+                right_button.place(x=self.window_width-400, y=(self.window_height*0.8)//2)
 
             case "calendar_creation":
                 pass
