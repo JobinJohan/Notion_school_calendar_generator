@@ -1,6 +1,6 @@
 from tkinter import ttk
 import tkinter as tk
-from jsoneditor.entrypopup import *
+from jsoneditor.entry_popup import *
 import pprint
 from typing import Type
 from typing import Callable
@@ -9,27 +9,34 @@ from typing import Dict
 
 class JsonEditor:
 
-    def __init__(self, window: tk.Frame, data: Dict):
+    def __init__(self, window: tk.Frame, config):
         # Save config
-        self.data = data
+        self.config = config
+        self.data = config.config
 
         # Create tree
         self.tree = ttk.Treeview(window, columns=("Column1"))
         self.tree.column("Column1", width=int(window.winfo_width()*0.5))
         self.tree.heading("Column1", text="Valeurs à compléter")
-        self.tree.pack()
 
+        # Vertical scrollbar
+        vsb = ttk.Scrollbar(window, orient="vertical", command=self.tree.yview)
+        vsb.place(x=894, y=50, height=225)
+        self.tree.configure(yscrollcommand=vsb.set)
+    
         # Add data into the tree and store a mapping between the keys and the item id
         # This is necessary to keep the data dictionary synchronized with the UI
         self.item_id_to_key_mapping = {}
-        self.add_items_to_tree("", data, "")
+        self.add_items_to_tree("", self.data, "")
         # pprint.pprint(self.key_to_item_id_mapping)
         self.expand_all()
         
         # Make the tree editable when the user double clicks
         self.tree.bind("<Double-1>", self.edit_value)
-    
 
+    def pack(self, pady = 0) -> None:
+        self.tree.pack(pady=pady)
+    
     def add_items_to_tree(self, parent_item: str, data: Dict, previous_key: str) -> None:
         # Go through the data that need to be stored into the tree
         for key, value in data.items():
@@ -49,8 +56,6 @@ class JsonEditor:
                 else:
                     self.item_id_to_key_mapping[item_id] = f"{previous_key}.{key}"
     
-
-
     def expand_all(self, item: str ="") -> None:
         # Get all children of a specific item ("" is the root item)
         children = self.tree.get_children(item)
@@ -59,7 +64,6 @@ class JsonEditor:
         for child in children:
             self.tree.item(child, open=True)
             self.expand_all(child)
-
 
     def edit_value(self, event: tk.Event) -> None:
         # Get the number of row and column on which the user clicked on
@@ -73,7 +77,7 @@ class JsonEditor:
             x, y, width, mheight = self.tree.bbox(rowid, column)
 
             # Create the entry popup   
-            self.entryPopup = EntryPopup(self.tree, rowid, self.tree.item(rowid, "values")[0], self.data, self.item_id_to_key_mapping)
+            self.entryPopup = EntryPopup(self.tree, rowid, self.tree.item(rowid, "values")[0], self.config, self.item_id_to_key_mapping)
             
             # Place Entry popup properly      
             self.entryPopup.place(x=0, y=y, relwidth=1)

@@ -5,22 +5,20 @@ import os
 from tkinter import messagebox
 from jsonschema import validate
 from config.config_schema import schema
+from pathlib import Path
 
 
 class Config():
-
     # Current config
     config: Dict
     empty_config_file_name: str
+    config_file_path: str
 
     def __init__(self) -> None:
-
         # Get the filename of the empty configuration file
         self.empty_config_file_name = "empty_config.json"
 
-
     def load_config_if_valid(self, path: str) -> bool:
-
         # If the configuration file already exists, load it, else, create a new
         if os.path.isfile(path):
             # Try to load a configuration
@@ -32,6 +30,8 @@ class Config():
                     if not self.is_valid_config():
                         self.reset_config()
                         return False
+                    
+                    self.config_file_path = path
 
             except json.JSONDecodeError:
                 messagebox.showerror("Erreur", "Le fichier sélectionné n'est pas un fichier .json valide")
@@ -45,7 +45,6 @@ class Config():
     
         
     def init_config_from_empty_config(self) -> bool:
-
         # Path to empty config file
         empty_config_file_path = os.path.join(os.getcwd(), "config", self.empty_config_file_name)
 
@@ -101,26 +100,44 @@ class Config():
             self.save_config_in_file()
 
             return True
-
-    
+        
         else:
             return False
         
-        
-
     def save_config_in_file(self) -> None:
+        # Check if the file already exist and prevent overwriting it
+        i = 0
+        f_p = Path(f"config_{datetime.datetime.now().strftime('%Y_%m_%d')}_{i}.json")
+        while f_p.exists():
+            i += 1
+            f_p = Path(f"config_{datetime.datetime.now().strftime('%Y_%m_%d')}_{i}.json")
+
+        # Save file name as an attribute
+        self.config_file_path = f"config_{datetime.datetime.now().strftime('%Y_%m_%d')}_{i}.json"
+
+        # Write config into the file
         try:
-            with open(f"config_{datetime.datetime.now().strftime('%Y_%m_%d')}.json", "w") as fichier:
+            with open(self.config_file_path, "w") as fichier:
                 json.dump(self.config, fichier, indent=4)
         except Exception:
             print("Une erreur s'est produite lors de la sauvegarde de la configuration")
 
+    def save_config_from_dict(self, dict) -> None:
+        # Write the given dict into the config file
+        try:
+            with open(self.config_file_path, "w") as fichier:
+                json.dump(dict, fichier, indent=4)
+        except Exception:
+            print("Une erreur s'est produite lors de la sauvegarde de la configuration")
 
     def reset_config(self) -> None:
+        # Reset all attributes
         self.empty_config_file_name = ""
         self.config = {}
+        self.config_file_path = ""
     
     def is_valid_config(self) -> bool:
+        # Check that the config exists and is not null
         if self.config is not None:
             try:
                 validate(self.config, schema=schema)
@@ -130,19 +147,3 @@ class Config():
                 return False
         else:
             return False
-
-
-    def edit_info_for_a_specific_class(self, classe_name: str) -> None:
-        pass
-
-    def reset_info_for_a_specific_class(self, class_name: str) -> None:
-        pass
-
-    def edit_general_info(self, info: str) -> None:
-        pass
-
-    def add_holiday(self, holiday_name: str) -> None:
-        pass
-
-    def edit_holiday(self, holiday_name: str) -> None:
-        pass

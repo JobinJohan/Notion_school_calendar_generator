@@ -4,14 +4,18 @@ from typing import Dict
 
 class EntryPopup(ttk.Entry):
 
-    def __init__(self, parent: ttk.Treeview, iid: int, old_value: str, tree_data: Dict, item_id_to_key_mapping: Dict) -> None:
+    def __init__(self, parent: ttk.Treeview, iid: int, old_value: str, config, item_id_to_key_mapping: Dict) -> None:
+
+        # App config
+        self.config = config
+
         # Create the entry and add it to the tree
         super().__init__(parent)
         self.tv = parent
         self.iid = iid
 
         # Store the data used to create the tree (is used to keep the UI of the tree and the underlying data synchronized)
-        self.tree_data = tree_data
+        self.tree_data = config.config
         self.item_id_to_key_mapping = item_id_to_key_mapping
 
         # The default text in the input field is the old value
@@ -39,6 +43,9 @@ class EntryPopup(ttk.Entry):
 
         # Update the dictionary with the new value at the correct position
         current_data[full_paths[-1]] = new_value
+
+        # Update the app config by saving the modification in the associated file
+        self.config.save_config_from_dict(self.tree_data)
 
         # Destroy the entry
         self.destroy()
