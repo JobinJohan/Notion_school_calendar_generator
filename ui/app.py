@@ -45,7 +45,6 @@ class AppUI():
         self.title_frame.pack(side=TOP)
         self.margin_bottom_title = 50
 
-
         # Config
         self.config = Config()
 
