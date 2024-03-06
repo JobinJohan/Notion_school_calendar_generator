@@ -8,7 +8,7 @@ import copy
 
 class NotionPage:
 
-    def __init__(self, page_parent_id: str = "", page_title: str = "", emoji: str = "", notion_page_id="" ):
+    def __init__(self, page_parent_id: str = "", page_title: str = "", emoji: str = "", page_id="" ):
         # Load environment variables (Notion API Key)
         load_dotenv()
         self.NOTION_API_KEY = os.getenv("NOTION_API_KEY")
@@ -21,7 +21,7 @@ class NotionPage:
         }
 
         # If we create the page locally
-        if notion_page_id == "":
+        if page_id == "":
             self.page_dict = {
                 "parent": {
                     "type": "page_id",
@@ -53,8 +53,8 @@ class NotionPage:
 
         # If the page is loaded from Notion
         else:
-            self.get_page_properties_from_notion(notion_page_id)
-            self.get_page_content_from_notion(notion_page_id)
+            self.get_page_properties_from_notion(page_id)
+            self.get_page_content_from_notion(page_id)
 
     def get_page_properties_from_notion(self, page_id) -> None:
         # Get page properties from Notion
