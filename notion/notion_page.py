@@ -2,7 +2,9 @@ import copy
 import datetime
 import os
 import pprint
+from tkinter import messagebox
 from typing import List, Tuple
+from config.config import Config
 import requests
 from dotenv import load_dotenv
 
@@ -403,12 +405,43 @@ class NotionPage:
         # Groupes
         self.add_heading(2, "Groupes")
 
+    @staticmethod
+    def check_if_root_page_is_valid(page_id: str) -> bool:
+        """Check if the Notion page root ID is valid
+        :param page_id: str: Notion page root ID
+        """
+
+        is_valid = True
+
+        # Check if the page ID is valid, i.e. 36 characters
+        if len(page_id) != 36:
+            print("Invalid page ID")
+            is_valid = False
+        
+        # Try to get the page from the Notion API
+        res = requests.get(f"https://api.notion.com/v1/pages/{page_id}", headers=NotionPage().headers, timeout=10 )
+
+        # Check if the page exists
+        if res.status_code != 200:
+            print("Invalid page ID")
+            is_valid = False
+    
+        if not is_valid:
+            # Display warning message
+            messagebox.showwarning("Attention", "La page Notion n'existe pas. Veuillez entrer un identifiant de page valide.")
+            return False
+        
+        return True
+        
 
     @staticmethod
-    def create_pages_from_config(config: dict) -> None:
+    def create_pages_from_config(config: Config) -> None:
         """Create pages from a configuration file
         :param config: a dict containing the configuration
         """
+
+        print("héhé")
+        return None
 
         # Page id where the hierarchy of pages has to be appended
         page_root_id = "a026cb1f-35fd-4631-a3e9-887e103c5d9a"

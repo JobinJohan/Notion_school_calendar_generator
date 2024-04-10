@@ -3,8 +3,11 @@ import tkinter as tk
 from tkinter import *
 from typing import Callable
 from config.config import *
+from notion.notion_page import NotionPage
 from jsoneditor.editor import JsonEditor
 from ui.menu import MenuApp
+import requests
+from dotenv import load_dotenv
 
 class AppUI():
     """Class that creates the main window of the app"""
@@ -68,13 +71,22 @@ class AppUI():
         self.title_label.pack(ipady=(self.window_height*0.2)//2)
         self.title_frame.pack_propagate(False)
 
-    def execute_and_redirect(self, function: Callable, page: str) -> None:
+    def execute_and_redirect(self, function: Callable, *args) -> None:
         """Execute a function and redirect to another page
         :param function: Callable: function to execute
         :param page: str: page to redirect to
         """
-        if function():
-            self.display_content(page)
+        print("La longueur des arguments est de", len(args))
+        print("ARGS0", args[0])
+
+
+        if len(args) == 1:
+            if function():
+                self.display_content(args[0])
+        else:
+            print("ARGS1", args[1])
+            if function(args[1]):
+                self.display_content(args[0])       
 
     def display_content(self, page: str) -> None:
         """Display the content of the frame
@@ -137,6 +149,9 @@ class AppUI():
                 label = tk.Label(self.content_frame, text="Notion page ID:")
                 label.grid(row=0, column=0, padx=10, pady=50, sticky="e")
 
+                # Change label font size and font
+                label.config(font=self.font_content)
+                
                 entry = tk.Entry(
                     self.content_frame,
                     bg="white",
@@ -145,17 +160,37 @@ class AppUI():
                     bd=3
                 )
                 entry.grid(row=0, column=1, padx=10, pady=50)
+                
+                # Change width of the entry field
+                entry.config(width=50)
+
+                # If user presses enter, execute the function
+                entry.bind("<Return>", lambda event: self.execute_and_redirect(NotionPage.check_if_root_page_is_valid, "generate_calendar", entry.get()))
 
                 # Buttons
                 left_button = Button(self.content_frame, text="Revenir en arrière", bg=self.blue, font=self.font_content,
                                      command=lambda: self.display_content("landing_page"), fg=self.white, width=self.button_width)
-                right_button = Button(self.content_frame, text="Générer calendrier avec l'API de Notion", bg=self.blue, font=self.font_content,
-                                      fg=self.white, command=lambda: self.display_content("notion_root_page"), width=self.button_width+10)
+                right_button = Button(self.content_frame, text="Vérifier si la page Notion existe réellement", bg=self.blue, font=self.font_content,
+                                      fg=self.white, command=lambda: self.execute_and_redirect(NotionPage.check_if_root_page_is_valid, "generate_calendar", entry.get()), width=self.button_width+10)
                 left_button.grid(row=2, column=0, padx=10, pady=300)
                 right_button.grid(row=2, column=1, padx=10, pady=300)
+
+            case "generate_calendar":
+                self.change_title("Génération du calendrier Notion")
+
+                # Buttons
+                left_button = Button(self.content_frame, text="Revenir en arrière", bg=self.blue, font=self.font_content,
+                                     command=lambda: self.display_content("notion_root_page"), fg=self.white, width=self.button_width)
+                right_button = Button(self.content_frame, text="Générer calendrier", bg=self.blue, font=self.font_content,
+                                      fg=self.white, command=lambda: NotionPage.create_pages_from_config(self.config), width=self.button_width+10)
+                left_button.grid(row=2, column=0, padx=10, pady=300)
+                right_button.grid(row=2, column=1, padx=10, pady=300)
+
 
             case "a_propos":
                 self.change_title("A propos")
 
             case _:
                 self.display_content("landing_page")
+
+    
