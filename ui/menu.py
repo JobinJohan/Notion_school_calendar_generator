@@ -1,9 +1,11 @@
 import tkinter as tk
 from tkinter import filedialog
 import webbrowser
-from config.config import *
+from config.config import Config
 
 class MenuApp():
+    """Class that creates the menu of the app"""
+
     def __init__(self, app):
         self.app = app
         self.root = app.root
@@ -12,6 +14,8 @@ class MenuApp():
         self.create_file_menu()
 
     def create_file_menu(self):
+        """Create the file menu of the app"""
+
         file_menu = tk.Menu(self.menu_bar, tearoff=0)
         self.menu_bar.add_cascade(label="Fichier", menu=file_menu)
         file_menu.add_command(label="Nouveau", command=self.new_file)
@@ -25,10 +29,14 @@ class MenuApp():
         help_menu.add_command(label="Documentation de l'API Notion", command=self.notion_api_info)
 
     def new_file(self) -> None:
+        """Create a new file with an empty configuration"""
+
         self.app.config.init_config_from_empty_config()
         self.app.display_content("json_editor")
 
     def open_file(self)-> None:
+        """Open a file and load the configuration if it is valid"""
+
         file_path = filedialog.askopenfilename()
         self.app.config= Config()
 
@@ -36,11 +44,17 @@ class MenuApp():
             self.app.display_content("json_editor")
             
     def exit_app(self)-> None:
+        """Exit the app"""
+
         self.root.destroy()
 
     def a_propos(self)-> None:
+        """Display the about page"""
+
         self.app.display_content("a_propos")
         
     def notion_api_info(self)-> None:
+        """Open the Notion API documentation"""
+        
         url = "https://developers.notion.com/"
         webbrowser.open_new_tab(url)

@@ -1,14 +1,15 @@
-from typing import Dict
-import json
 import datetime
+import json
 import os
+from pathlib import Path
 from tkinter import messagebox
+from typing import Dict
 from jsonschema import validate
 from config.config_schema import schema
-from pathlib import Path
-
 
 class Config():
+    """Class that handles the configuration of the calendar to generate"""
+    
     # Current config
     config: Dict
     empty_config_file_name: str
@@ -19,6 +20,10 @@ class Config():
         self.empty_config_file_name = "empty_config.json"
 
     def load_config_if_valid(self, path: str) -> bool:
+        """Load a configuration file if it is valid
+        :param path: str: path to the configuration file
+        """
+
         # If the configuration file already exists, load it, else, create a new
         if os.path.isfile(path):
             # Try to load a configuration
@@ -45,6 +50,8 @@ class Config():
     
         
     def init_config_from_empty_config(self) -> bool:
+        """Initialize the configuration from an empty configuration file"""
+        
         # Path to empty config file
         empty_config_file_path = os.path.join(os.getcwd(), "config", self.empty_config_file_name)
 
@@ -105,6 +112,8 @@ class Config():
             return False
         
     def save_config_in_file(self) -> None:
+        """Save the current configuration in a file"""
+    
         # Check if the file already exist and prevent overwriting it
         i = 0
         f_p = Path(f"config_{datetime.datetime.now().strftime('%Y_%m_%d')}_{i}.json")
@@ -117,26 +126,33 @@ class Config():
 
         # Write config into the file
         try:
-            with open(self.config_file_path, "w") as fichier:
+            with open(self.config_file_path, "w", encoding="utf-8") as fichier:
                 json.dump(self.config, fichier, indent=4)
         except Exception:
             print("Une erreur s'est produite lors de la sauvegarde de la configuration")
 
     def save_config_from_dict(self, dict) -> None:
+        """Save the given dictionary into the configuration file
+        :param dict: dict: dictionary to save into the configuration file
+        """
         # Write the given dict into the config file
         try:
-            with open(self.config_file_path, "w") as fichier:
+            with open(self.config_file_path, "w", encoding="utf-8") as fichier:
                 json.dump(dict, fichier, indent=4)
         except Exception:
             print("Une erreur s'est produite lors de la sauvegarde de la configuration")
 
     def reset_config(self) -> None:
+        """Reset the configuration to an empty state"""
+
         # Reset all attributes
         self.empty_config_file_name = ""
         self.config = {}
         self.config_file_path = ""
     
     def is_valid_config(self) -> bool:
+        """Check if the current configuration is valid"""
+
         # Check that the config exists and is not null
         if self.config is not None:
             try:

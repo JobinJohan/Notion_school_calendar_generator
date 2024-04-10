@@ -1,0 +1,1035 @@
+{
+    "infos_generales": {
+        "lundi_semaine_0": "2024-08-22",
+        "vacances": {
+            "automne": {
+                "date_debut": "2024-10-14",
+                "date_fin": "2024-10-25"
+            },
+            "noel": {
+                "date_debut": "2024-12-23",
+                "date_fin": "2025-01-03"
+            },
+            "carnaval": {
+                "date_debut": "2025-03-03",
+                "date_fin": "2025-03-07"
+            },
+            "paques": {
+                "date_debut": "2025-04-18",
+                "date_fin": "2025-05-02"
+            },
+            "ete": {
+                "date_debut": "2025-06-27",
+                "date_fin": "2025-08-26"
+            }
+        },
+        "jours_feries": {
+            "toussaint": {
+                "date_debut": "2024-11-01",
+                "date_fin": "2024-11-01"
+            },
+            "immaculee_conception": {
+                "date_debut": "2024-12-08",
+                "date_fin": "2024-12-08"
+            },
+            "ascension": {
+                "date_debut": "2025-05-29",
+                "date_fin": "2025-05-30"
+            },
+            "pentecote": {
+                "date_debut": "2025-06-09",
+                "date_fin": "2025-06-09"
+            },
+            "fete-dieu": {
+                "date_debut": "2025-06-19",
+                "date_fin": "2025-06-19"
+            }
+        }
+    },
+    "niveaux": {
+        "gymnase": {
+            "1gy": {
+                "infos_generales": {
+                    "url_moodle": "https://moodle.fritic.ch/course/view.php?id=2251",
+                    "url_jupyterhub": "https://jupyterhub.informatique-csud.ch/user/johan/tree"
+                },
+                "classes": {
+                    "1gy1": {
+                        "nb_eleves": 20,
+                        "cours_1": {
+                            "jour": "lundi",
+                            "heure_debut": "08:00",
+                            "heure_fin": "09:00",
+                            "salle": "101"
+                        },
+                        "cours_2": {
+                            "jour": "vendredi",
+                            "heure_debut": "08:00",
+                            "heure_fin": "09:00",
+                            "salle": "202"
+                        }
+                    },
+                    "1gy2": {
+                        "nb_eleves": 18,
+                        "cours_1": {
+                            "jour": "mardi",
+                            "heure_debut": "08:00",
+                            "heure_fin": "09:00",
+                            "salle": "101"
+                        },
+                        "cours_2": {
+                            "jour": "mercredi",
+                            "heure_debut": "08:00",
+                            "heure_fin": "09:00",
+                            "salle": "102"
+                        }
+                    },
+                    "1gy3": {
+                        "nb_eleves": 25,
+                        "cours_1": {
+                            "jour": "jeudi",
+                            "heure_debut": "08:00",
+                            "heure_fin": "09:00",
+                            "salle": "102"
+                        },
+                        "cours_2": {
+                            "jour": "vendredi",
+                            "heure_debut": "08:00",
+                            "heure_fin": "09:00",
+                            "salle": "100"
+                        }
+                    },
+                    "1gy4": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1gy5": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1gy6": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1gy7": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1gy8": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1gy9": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1gy10": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1gy11": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1gy12": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1gy13": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1gy14": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    }
+                }
+            },
+            "2gy": {
+                "infos_generales": {
+                    "url_moodle": "https://moodle.fritic.ch/course/view.php?id=2252",
+                    "url_jupyterhub": "https://jupyterhub.informatique-csud.ch/user/johan/tree"
+                },
+                "classes": {
+                    "2gy1": {
+                        "nb_eleves": 18,
+                        "cours_1": {
+                            "jour": "mardi",
+                            "heure_debut": "08:00",
+                            "heure_fin": "09:00",
+                            "salle": "101"
+                        },
+                        "cours_2": {
+                            "jour": "jeudi",
+                            "heure_debut": "08:00",
+                            "heure_fin": "09:00",
+                            "salle": "202"
+                        }
+                    },
+                    "2gy2": {
+                        "nb_eleves": 12,
+                        "cours_1": {
+                            "jour": "mercredi",
+                            "heure_debut": "09:00",
+                            "heure_fin": "10:00",
+                            "salle": "101"
+                        },
+                        "cours_2": {
+                            "jour": "jeudi",
+                            "heure_debut": "10:00",
+                            "heure_fin": "11:00",
+                            "salle": "102"
+                        }
+                    },
+                    "2gy3": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2gy4": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2gy5": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2gy6": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2gy7": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2gy8": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2gy9": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2gy10": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2gy11": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2gy12": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2gy13": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2gy14": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    }
+                }
+            }
+        },
+        "ecg": {
+            "1ecg": {
+                "infos_generales": {
+                    "url_moodle": "",
+                    "url_jupyterhub": ""
+                },
+                "classes": {
+                    "1ecg1": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1ecg2": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1ecg3": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1ecg4": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1ecg5": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1ecg6": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1ecg7": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1ecg8": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1ecg9": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1ecg10": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1ecg11": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1ecg12": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1ecg13": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "1ecg14": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    }
+                }
+            },
+            "2ecg": {
+                "infos_generales": {
+                    "url_moodle": "https://moodle.fritic.ch/course/view.php?id=2253",
+                    "url_jupyterhub": "https://jupyterhub.informatique-csud.ch"
+                },
+                "classes": {
+                    "2ecg1": {
+                        "nb_eleves": 10,
+                        "cours_1": {
+                            "jour": "mardi",
+                            "heure_debut": "13:00",
+                            "heure_fin": "14:00",
+                            "salle": "202"
+                        },
+                        "cours_2": {
+                            "jour": "mercredi",
+                            "heure_debut": "15:00",
+                            "heure_fin": "16:00",
+                            "salle": "101"
+                        }
+                    },
+                    "2ecg2": {
+                        "nb_eleves": 15,
+                        "cours_1": {
+                            "jour": "jeudi",
+                            "heure_debut": "11:00",
+                            "heure_fin": "12:00",
+                            "salle": "102"
+                        },
+                        "cours_2": {
+                            "jour": "vendredi",
+                            "heure_debut": "14:00",
+                            "heure_fin": "15:00",
+                            "salle": "202"
+                        }
+                    },
+                    "2ecg3": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2ecg4": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2ecg5": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2ecg6": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2ecg7": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2ecg8": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2ecg9": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2ecg10": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2ecg11": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2ecg12": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2ecg13": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2ecg14": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    }
+                }
+            }
+        },
+        "ec": {
+            "2ec": {
+                "infos_generales": {
+                    "url_moodle": "https://moodle.fritic.ch/course/view.php?id=2254",
+                    "url_jupyterhub": "https://jupyterhub.informatique-csud.ch"
+                },
+                "classes": {
+                    "2ec1": {
+                        "nb_eleves": 15,
+                        "cours_1": {
+                            "jour": "lundi",
+                            "heure_debut": "12:00",
+                            "heure_fin": "13:00",
+                            "salle": "202"
+                        },
+                        "cours_2": {
+                            "jour": "mardi",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": "101"
+                        }
+                    },
+                    "2ec2": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "2ec3": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    }
+                }
+            },
+            "3ec": {
+                "infos_generales": {
+                    "url_moodle": "https://moodle.fritic.ch/course/view.php?id=2255",
+                    "url_jupyterhub": "https://jupyterhub.informatique-csud.ch"
+                },
+                "classes": {
+                    "3ec1": {
+                        "nb_eleves": 10,
+                        "cours_1": {
+                            "jour": "mercredi",
+                            "heure_debut": "09:00",
+                            "heure_fin": "09:30",
+                            "salle": "100"
+                        },
+                        "cours_2": {
+                            "jour": "jeudi",
+                            "heure_debut": "10:00",
+                            "heure_fin": "10:45",
+                            "salle": "100"
+                        }
+                    },
+                    "3ec2": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    },
+                    "3ec3": {
+                        "nb_eleves": 0,
+                        "cours_1": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        },
+                        "cours_2": {
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

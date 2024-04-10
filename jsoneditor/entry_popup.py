@@ -3,6 +3,7 @@ import tkinter as tk
 from typing import Dict
 
 class EntryPopup(ttk.Entry):
+    """Class that creates a popup to edit a value in a treeview"""
 
     def __init__(self, parent: ttk.Treeview, iid: int, old_value: str, config, item_id_to_key_mapping: Dict) -> None:
 
@@ -30,6 +31,10 @@ class EntryPopup(ttk.Entry):
         self.bind("<Escape>", lambda *ignore: self.destroy())
 
     def on_return(self, event: tk.Event) -> None:
+        """Function that is called when the user presses the return key
+        :param event: tk.Event: event object
+        """
+
         # Update the tree at the correct position
         new_value = self.get()
         self.tv.set(self.iid, "Column1", new_value)
@@ -50,7 +55,8 @@ class EntryPopup(ttk.Entry):
         # Destroy the entry
         self.destroy()
 
-    def select_all(self, *ignore) -> None:
+    def select_all(self, *ignore) -> str:
+        """Function that selects all the text in the input field"""
         self.selection_range(0, 'end')
 
         # returns 'break' to interrupt default key-bindings
