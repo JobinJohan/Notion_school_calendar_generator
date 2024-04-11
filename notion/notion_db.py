@@ -2,6 +2,7 @@ import datetime
 import os
 import pprint
 import requests
+import sys
 from dotenv import load_dotenv
 from notion import notion_page
 
@@ -37,6 +38,9 @@ class NotionDB:
                     }
                 ],
                 "properties": {
+                    "Name": {
+                        "title": {}
+                    },
                 },
                 "description": [{
                     "type": "text",
@@ -305,6 +309,9 @@ class NotionDB:
                     }
                 }
             case "title":
+                if self.db_dict["properties"]["Name"]:
+                    del self.db_dict["properties"]["Name"]                   
+
                 column_dict[column_name] = {
                     "name": column_name,
                     "type": "title",
@@ -386,6 +393,11 @@ class NotionDB:
                 page.add_page_property(element)
             self.save_page_into_db(page)
 
+
+    def create_db_for_a_year_and_a_class(self, year, class_name ):
+        """Create a database for a year and a class"""
+        pass
+
     def save_page_into_db(self, page: notion_page.NotionPage) -> None:
         """Save a page into the database.
             :param page: The page to save into the database.
@@ -397,5 +409,5 @@ class NotionDB:
         """POST the new page and save the id into the db_id attribute"""
 
         res = requests.post("https://api.notion.com/v1/databases",
-                            headers=self.headers, json=self.db_dict, timeout=10)
+                            headers=self.headers, json=self.db_dict, timeout=10)   
         self.db_id = res.json()['id']

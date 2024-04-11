@@ -465,6 +465,9 @@ class NotionPage:
         """Create pages from a configuration file
         :param config: a dict containing the configuration
         """
+
+        from notion.notion_db import NotionDB
+
         # Get the configuration dictionary
         config_dict = config.config
 
@@ -508,6 +511,7 @@ class NotionPage:
             page_general_info.add_heading(2, f"{niveau.capitalize()}")
             page_general_info.append_unsaved_content_to_same_page()
 
+            first_loop = True
             for annee in config_dict['niveaux'][niveau]:
 
                 # Create a page for each year
@@ -515,11 +519,22 @@ class NotionPage:
                 page_year.save_as_new_page()
 
                 # Create a database for each year
+                # Check if database already exists
+                if first_loop :
+                    database_for_a_specic_year = NotionDB(page_parent_id=page_year.page_id, db_title=f"{annee.upper()} - Calendrier des cours [{short_current_year_interval}]", db_emoji="📆")
+                    database_for_a_specic_year.add_columns_for_class(annee)
+                    database_for_a_specic_year.save_as_a_new_db()
+                else:
+                    pass
 
                 # Create a page for each class in each year
                 for classe in config_dict['niveaux'][niveau][annee]["classes"]:
-                        class_info = config_dict['niveaux'][niveau][annee]["classes"][classe]
-                        general_info = config_dict['niveaux'][niveau][annee]["infos_generales"]
-                        page = NotionPage(parent_id=page_year.page_id, parent_type="page_id", page_title=f"{classe} [{short_current_year_interval}]", emoji="💻")
-                        page.create_page_for_a_class(class_info, general_info, page_jupyterhub.page_url)
-                        page.save_as_new_page()
+                        
+                        # Check that the class is not empty
+                        if not config_dict['niveaux'][niveau][annee]["classes"][classe]["nb_eleves"] == 0:
+                            title = "Cours d'informatique" if niveau in ["gymnase", "ecg"] else ""
+                            class_info = config_dict['niveaux'][niveau][annee]["classes"][classe]
+                            general_info = config_dict['niveaux'][niveau][annee]["infos_generales"]
+                            page = NotionPage(parent_id=page_year.page_id, parent_type="page_id", page_title=f"{classe.upper()} - {title} [{short_current_year_interval}]", emoji="💻")
+                            page.create_page_for_a_class(class_info, general_info, page_jupyterhub.page_url)
+                            page.save_as_new_page()
