@@ -60,6 +60,9 @@ class AppUI():
         self.content_frame.pack(side=TOP)
         self.display_content("landing_page")
 
+        # Save notion root page ID
+        self.notion_root_page_id = None
+
         self.root.mainloop()
 
     def change_title(self, title: str) -> None:
@@ -76,15 +79,13 @@ class AppUI():
         :param function: Callable: function to execute
         :param page: str: page to redirect to
         """
-        print("La longueur des arguments est de", len(args))
-        print("ARGS0", args[0])
-
-
+    
+  
         if len(args) == 1:
             if function():
                 self.display_content(args[0])
         else:
-            print("ARGS1", args[1])
+            self.notion_root_page_id = args[1]
             if function(args[1]):
                 self.display_content(args[0])       
 
@@ -144,7 +145,6 @@ class AppUI():
                 self.change_title("Page Notion racine")
 
                 # Content
-
                 # Input field to get the Notion page root ID (max 36 chars)
                 label = tk.Label(self.content_frame, text="Notion page ID:")
                 label.grid(row=0, column=0, padx=10, pady=50, sticky="e")
@@ -182,7 +182,7 @@ class AppUI():
                 left_button = Button(self.content_frame, text="Revenir en arrière", bg=self.blue, font=self.font_content,
                                      command=lambda: self.display_content("notion_root_page"), fg=self.white, width=self.button_width)
                 right_button = Button(self.content_frame, text="Générer calendrier", bg=self.blue, font=self.font_content,
-                                      fg=self.white, command=lambda: NotionPage.create_pages_from_config(self.config), width=self.button_width+10)
+                                      fg=self.white, command=lambda: NotionPage.create_pages_from_config(self.config, self.notion_root_page_id), width=self.button_width+10)
                 left_button.grid(row=2, column=0, padx=10, pady=300)
                 right_button.grid(row=2, column=1, padx=10, pady=300)
 

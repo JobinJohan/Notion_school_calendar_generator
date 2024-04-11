@@ -13,6 +13,13 @@ class NotionPage:
     """Class to create, edit and save a page to Notion"""
 
     def __init__(self, parent_id: str = "", parent_type: str = "page_id", page_title: str = "", emoji: str = "", page_id=""):
+        """Constructor of the NotionPage class
+        :param parent_id: the id of the parent page
+        :param parent_type: the type of the parent page (page_id, database_id)
+        :param page_title: the title of the page
+        :param emoji: the emoji of the page
+        :param page_id: the id of the page to load from Notion
+        """
         # Load environment variables (Notion API Key)
         load_dotenv()
         self.NOTION_API_KEY = os.getenv("NOTION_API_KEY")
@@ -49,7 +56,9 @@ class NotionPage:
                     "emoji": emoji
                 }
 
+            # Page id and page url are set by the Notion API when the page is saved
             self.page_id = ""
+            self.page_url = ""
 
             # Store the number of blocks not saved since last saved
             # Is used to determine which content blocks aren't saved to Notion
@@ -65,7 +74,7 @@ class NotionPage:
             :param page_id: the id of the page to get the properties from
         """
         res = requests.get(
-            f"https://api.notion.com/v1/pages/{page_id}", headers=self.headers, timeout=5)
+            f"https://api.notion.com/v1/pages/{page_id}", headers=self.headers, timeout=20)
         self.page_id = res.json()["id"]
         self.page_dict = res.json()
 
@@ -74,7 +83,7 @@ class NotionPage:
             :param page_id: the id of the page to get the content from
         """
         res = requests.get(
-            f"https://api.notion.com/v1/blocks/{page_id}/children", headers=self.headers, timeout=5)
+            f"https://api.notion.com/v1/blocks/{page_id}/children", headers=self.headers, timeout=20)
         self.page_dict["children"] = res.json()["results"]
         self.nb_blocks_not_saved_since_last_save = 0
 
@@ -82,9 +91,10 @@ class NotionPage:
         """POST the new page and save the id into the page_id attribute"""
 
         res = requests.post("https://api.notion.com/v1/pages",
-                            headers=self.headers, json=self.page_dict, timeout=5)
+                            headers=self.headers, json=self.page_dict, timeout=20)
         print(res.json())
         self.page_id = res.json()['id']
+        self.page_url = res.json()['url']
         self.nb_blocks_not_saved_since_last_save = 0
 
     def add_page_properties(self, properties: List[Tuple]) -> None:
@@ -206,13 +216,13 @@ class NotionPage:
             case _:
                 return None
 
-    def append_unsaved_content_to_same_page(self) -> str:
+    def append_unsaved_content_to_same_page(self) -> None:
         """Append the unsaved content to the same page"""
 
         # If the page has already been saved, then append the unsaved content to the same page and save it again
         if self.page_id:
             res = requests.patch(f"https://api.notion.com/v1/blocks/{self.page_id}/children", headers=self.headers, json={
-                                 "children": self.page_dict["children"][self.nb_blocks_not_saved_since_last_save:]}, timeout=10)
+                                 "children": self.page_dict["children"][self.nb_blocks_not_saved_since_last_save:]}, timeout=20)
             self.page_dict["children"] = res.json()["results"]
             self.nb_blocks_not_saved_since_last_save = 0
 
@@ -328,7 +338,7 @@ class NotionPage:
         )
         self.nb_blocks_not_saved_since_last_save += 1
 
-    def add_table(self, list_of_lists: dict, has_column_header: bool = False, has_row_header: bool = False) -> None:
+    def add_table(self, list_of_lists: list[list], has_column_header: bool = False, has_row_header: bool = False) -> None:
         """Add table into the page content
         :param list_of_lists: is a list of lists containing the table content
         :param has_column_header: if True, the table has a column header
@@ -372,32 +382,49 @@ class NotionPage:
         self.page_dict["children"].append(table_dict)
         self.nb_blocks_not_saved_since_last_save += 1
 
-    def create_page_for_a_class(self, class_info: dict) -> None:
+    def create_page_for_a_class(self, class_info: dict, general_info: dict, notion_page_url_jupyterhub_users: str) -> None:
         """Create a page for a class
-        :param class_info: a dict containing the class information
+        :param general_info: a dict containing the general information. The format of the dict is the following:
+        "infos_generales": {
+                    "url_moodle": "",
+                    "url_jupyterhub": ""
+                },
+        :param class_info: a dict containing the class information. The format of the dict is the following:
+        "nom_classe": {
+            "nb_eleves": 0,
+            "cours_1": {
+                "jour": "",
+                "heure_debut": "",
+                "heure_fin": "",
+                "salle": ""
+            },
+            "cours_2": {
+                "jour": "",
+                "heure_debut": "",
+                "heure_fin": "",
+                "salle": ""
+            }
+        },
+        :param notion_page_id_jupyterhub_users: the id of the page containing the JupyterHub users
         """
         # Divider
         self.add_divider()
 
         # About the teacher
         self.add_heading(2, "A propos de l'enseignant")
-        self.add_paragraph("👨🏼‍🏫 Johan Jobin")
+        self.add_paragraph(f"👨🏼‍🏫 {os.getenv('ADMIN_SURNAME')} {os.getenv('ADMIN_NAME')}")
         self.add_paragraph("📧")
-        self.add_paragraph("adresse", url="mailto:adresse",
-                           new_paragraph=False)
+        self.add_paragraph(str(os.getenv('ADMIN_EMAIL')), url="mailto:adresse", new_paragraph=False)
 
         # About the course
         self.add_heading(2, "A propos du cours")
-        self.add_paragraph("📄 Moodle du cours")
-        self.add_paragraph(
-            f"🧭 Le cours a lieu chaque semaine le lundi de 8h10-9h45 (salle 202) ainsi que le jeudi de 8h10-8h55 (salle 202).")
+        self.add_paragraph("📄 Moodle du cours", url=general_info['url_moodle'])
+        self.add_paragraph(f"🧭 Le cours a lieu chaque semaine le {class_info['cours_1']['jour']} de {class_info['cours_1']['heure_debut']}-{class_info['cours_1']['heure_fin']} (salle {class_info['cours_1']['salle']}) ainsi que le {class_info['cours_2']['jour']} de {class_info['cours_2']['heure_debut']}-{class_info['cours_2']['heure_fin']} (salle {class_info['cours_2']['salle']}).")
         self.add_paragraph("💻")
-        self.add_paragraph(
-            f"Accès à JupyterHub", url="https://jupyterhub.informatique-csud.ch", new_paragraph=False)
+        self.add_paragraph(f"Accès à JupyterHub", url=general_info['url_jupyterhub'], new_paragraph=False)
         self.add_paragraph(f"🤓")
-        self.add_paragraph(f"Liste des comptes JupyterHub de tous les étudiants",
-                           url="https://www.notion.so/Liste-des-comptes-JupyterHub-de-tous-les-tudiants-23-24-0131d95a68c941a583a90c930f36541f?pvs=21", new_paragraph=False)
-        self.add_paragraph(f"👨🏼‍💻 23 élèves.")
+        self.add_paragraph(f"Liste des comptes JupyterHub de tous les étudiants", url=notion_page_url_jupyterhub_users, new_paragraph=False)
+        self.add_paragraph(f"👨🏼‍💻 {class_info['nb_eleves']} élèves.")
 
         # Database
         self.add_heading(2, "Calendrier détaillé des cours")
@@ -415,16 +442,15 @@ class NotionPage:
 
         # Check if the page ID is valid, i.e. 36 characters
         if len(page_id) != 36:
-            print("Invalid page ID")
-            is_valid = False
+            messagebox.showwarning("Attention", "La page Notion n'existe pas. Veuillez entrer un identifiant de page valide.")
+            return False
         
         # Try to get the page from the Notion API
         res = requests.get(f"https://api.notion.com/v1/pages/{page_id}", headers=NotionPage().headers, timeout=10 )
 
         # Check if the page exists
         if res.status_code != 200:
-            print("Invalid page ID")
-            is_valid = False
+            return False
     
         if not is_valid:
             # Display warning message
@@ -435,16 +461,12 @@ class NotionPage:
         
 
     @staticmethod
-    def create_pages_from_config(config: Config) -> None:
+    def create_pages_from_config(config: Config, notion_root_page_id: str) -> None:
         """Create pages from a configuration file
         :param config: a dict containing the configuration
         """
-
-        print("héhé")
-        return None
-
-        # Page id where the hierarchy of pages has to be appended
-        page_root_id = "a026cb1f-35fd-4631-a3e9-887e103c5d9a"
+        # Get the configuration dictionary
+        config_dict = config.config
 
         # Year interval: 2023-2024
         # Short year interval: 23-24
@@ -452,41 +474,52 @@ class NotionPage:
         short_current_year_interval = f"{str(datetime.datetime.now().year)[2:]}-{str(int(datetime.datetime.now().year)+1)[2:]}"
 
         # Create page with general info
-        page_general_info = NotionPage(
-            page_root_id, f"Année {current_year_interval}")
+        print("Page id", notion_root_page_id)
+        page_general_info = NotionPage(parent_id=notion_root_page_id, parent_type="page_id", page_title=f"Année {current_year_interval}")
         page_general_info.add_heading(2, "Informations générales")
         page_general_info.save_as_new_page()
 
         # Create page with all JupyterHub accounts
-        page_jupyterhub = NotionPage(
-            page_general_info.page_id, f"Liste des comptes JupyterHub de tous les étudiants [{short_current_year_interval}]", "🤓")
-        page_jupyterhub.add_paragraph(
-            "Vous trouverez ci-dessous votre nom d'utilisateur pour accéder à")
-        page_jupyterhub.add_paragraph(
-            "la plateforme JupyterHub", url="https://jupyterhub.informatique-csud.ch", new_paragraph=False)
-        page_jupyterhub.add_paragraph(
-            "qui sera utilisée toute l'année pour apprendre la programmation Python")
+        page_jupyterhub = NotionPage(parent_id=page_general_info.page_id, parent_type="page_id", page_title=f"Liste des comptes JupyterHub de tous les étudiants [{short_current_year_interval}]", emoji="🤓")
+        page_jupyterhub.add_paragraph("Vous trouverez ci-dessous votre nom d'utilisateur pour accéder à")
+        page_jupyterhub.add_paragraph("la plateforme JupyterHub", url="https://jupyterhub.informatique-csud.ch", new_paragraph=False)
+        page_jupyterhub.add_paragraph("qui sera utilisée toute l'année pour apprendre la programmation Python")
         page_jupyterhub.save_as_new_page()
 
         # Create page for exams retaking
-        page_exam_retaking = NotionPage(
-            page_general_info.page_id, f"Rattrapages examens [{short_current_year_interval}]", "📄")
-        page_exam_retaking.add_table([["Classe", "Elève", "Date rattrapage", "Etat"], [
-                                     " ", " ", " ", " "], [" ", " ", " ", " "], [" ", " ", " ", " "]])
+        page_exam_retaking = NotionPage(parent_id=page_general_info.page_id, parent_type="page_id", page_title=f"Rattrapages examens [{short_current_year_interval}]", emoji="📄")
+        page_exam_retaking.add_table([["Classe", "Elève", "Date rattrapage", "Etat"], [" ", " ", " ", " "], [" ", " ", " ", " "], [" ", " ", " ", " "]])
         page_exam_retaking.save_as_new_page()
 
         # Create page for the schedule
-        schedule_page = NotionPage(
-            page_general_info.page_id, f"Horaires [{short_current_year_interval}]", "📆")
+        schedule_page = NotionPage(parent_id=page_general_info.page_id, parent_type="page_id", page_title=f"Horaires [{short_current_year_interval}]", emoji="📆")
         schedule_page.save_as_new_page()
 
         # Create page for the maturity work
-        tm_page = NotionPage(page_general_info.page_id,
-                             f"Travaux de maturité [{short_current_year_interval}]", "📄")
+        tm_page = NotionPage(parent_id=page_general_info.page_id, page_title=f"Travaux de maturité [{short_current_year_interval}]", emoji="📄")
         tm_page.add_heading(2, "Sujet")
         tm_page.add_paragraph("Description du sujet à ajouter ici")
         tm_page.add_heading(2, "Calendrier des séances/échéances")
         tm_page.save_as_new_page()
 
-        page_general_info.add_heading(2, "Heading ajouté par après")
-        page_general_info.append_unsaved_content_to_same_page()
+        # Go through the configuration file and create the pages/database for each program (1gy, 2gy, 1ecg, 2ecg, 1ec, 2ec)       
+        for niveau in config_dict['niveaux']:
+            
+            page_general_info.add_heading(2, f"{niveau.capitalize()}")
+            page_general_info.append_unsaved_content_to_same_page()
+
+            for annee in config_dict['niveaux'][niveau]:
+
+                # Create a page for each year
+                page_year = NotionPage(parent_id=page_general_info.page_id, parent_type="page_id", page_title=f"{annee.upper()} [{short_current_year_interval}]")
+                page_year.save_as_new_page()
+
+                # Create a database for each year
+
+                # Create a page for each class in each year
+                for classe in config_dict['niveaux'][niveau][annee]["classes"]:
+                        class_info = config_dict['niveaux'][niveau][annee]["classes"][classe]
+                        general_info = config_dict['niveaux'][niveau][annee]["infos_generales"]
+                        page = NotionPage(parent_id=page_year.page_id, parent_type="page_id", page_title=f"{classe} [{short_current_year_interval}]", emoji="💻")
+                        page.create_page_for_a_class(class_info, general_info, page_jupyterhub.page_url)
+                        page.save_as_new_page()
