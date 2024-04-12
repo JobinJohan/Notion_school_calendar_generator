@@ -5,6 +5,9 @@ import requests
 import sys
 from dotenv import load_dotenv
 from notion import notion_page
+from config.config import Config
+from utils.utils import day_to_value, date_to_course_duration, date_is_holiday
+import math
 
 
 class NotionDB:
@@ -328,6 +331,78 @@ class NotionDB:
 
         self.db_dict['properties'][list(column_dict.keys())[0]] = column_dict[list(column_dict.keys())[0]]
 
+    def add_all_rows_for_a_class(self, year: str, class_name: str, config: Config) -> None:
+        """Add all rows for a class according to the year and the class name.
+        :param year: The year of the class (1gy, 2gy, 1ecg, 2ecg, 2ec, 3ec).
+        :param class_name: The name of the class.
+        """
+
+        # Global information
+        config_dict = config.config
+        monday_week_0 = config_dict["infos_generales"]["lundi_semaine_0"]
+        number_of_weeks_in_year = 45
+
+        if year == "1gy":
+            
+            counter_group_week = 0
+            for week_number in range(number_of_weeks_in_year):
+
+                # Get the day of the course
+                day_course_1 = config_dict["niveaux"]["gymnase"][year]["classes"][class_name]["cours_1"]["jour"]
+                day_course_2 = config_dict["niveaux"]["gymnase"][year]["classes"][class_name]["cours_2"]["jour"]
+
+                # Compute the nth day during which the course will take place 
+                nth_day_course_1 = day_to_value(day_course_1)
+                nth_day_course_2 = day_to_value(day_course_2)
+
+                # Compute the date of the course
+                date_course_1 = datetime.datetime.strftime(datetime.datetime.strptime(monday_week_0, "%Y-%m-%d") + datetime.timedelta(days=nth_day_course_1 + 7*week_number), "%Y-%m-%d")
+                date_course_2 = datetime.datetime.strftime(datetime.datetime.strptime(monday_week_0, "%Y-%m-%d") + datetime.timedelta(days=nth_day_course_2 + 7*week_number), "%Y-%m-%d")
+
+                # Compute the duration of the course
+                start_course_1 = config_dict["niveaux"]["gymnase"][year]["classes"][class_name]["cours_1"]["heure_debut"]
+                end_course_1 = config_dict["niveaux"]["gymnase"][year]["classes"][class_name]["cours_1"]["heure_fin"]
+                duration_course_1 = date_to_course_duration(config_dict["infos_generales"], date_course_1, start_course_1, end_course_1)
+
+                start_course_2 = config_dict["niveaux"]["gymnase"][year]["classes"][class_name]["cours_2"]["heure_debut"]
+                end_course_2 = config_dict["niveaux"]["gymnase"][year]["classes"][class_name]["cours_2"]["heure_fin"]
+                duration_course_2 = date_to_course_duration(config_dict["infos_generales"], date_course_2, start_course_2, end_course_2)
+
+                modality_course_1 = date_is_holiday(config_dict["infos_generales"], date_course_1)[1]
+                modality_course_2 = date_is_holiday(config_dict["infos_generales"], date_course_2)[1]
+
+                # Add a row for each course in the week
+                self.add_default_row_for_class(class_name.upper(), week_number, date_course_1 , duration_course_1, [], modality_course_1, [], math.ceil(counter_group_week / 4))
+                self.add_default_row_for_class(class_name.upper(), week_number, date_course_2 , duration_course_2, [], modality_course_2, [], math.ceil(counter_group_week / 4))
+
+                # Ignore the holidays week to create the group of 4 weeks
+                print(modality_course_1, modality_course_2)
+                if  "⛱ Vacances" in modality_course_1 and "⛱ Vacances" in modality_course_2:
+                    counter_group_week += 0
+                else:
+                    counter_group_week += 1
+    
+
+        
+        elif year == "2gy":
+            pass
+
+        elif year == "1ecg":
+            pass
+
+        elif year == "2ecg":
+            pass
+
+        elif year == "2ec":
+            pass
+
+        elif year == "3ec":
+            pass
+            
+        else:
+            return None
+
+
     def add_default_row_for_class(self, class_name: "str", nb_week: int, date_lesson: str,
     duration: str, group: list, modality: list, topics: list, group_week: int) -> None:
         """Add rows into the database according to the class given.
@@ -392,11 +467,6 @@ class NotionDB:
             for element in row:
                 page.add_page_property(element)
             self.save_page_into_db(page)
-
-
-    def create_db_for_a_year_and_a_class(self, year, class_name ):
-        """Create a database for a year and a class"""
-        pass
 
     def save_page_into_db(self, page: notion_page.NotionPage) -> None:
         """Save a page into the database.

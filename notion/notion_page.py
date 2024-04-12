@@ -511,7 +511,7 @@ class NotionPage:
             page_general_info.add_heading(2, f"{niveau.capitalize()}")
             page_general_info.append_unsaved_content_to_same_page()
 
-            first_loop = True
+          
             for annee in config_dict['niveaux'][niveau]:
 
                 # Create a page for each year
@@ -520,18 +520,20 @@ class NotionPage:
 
                 # Create a database for each year
                 # Check if database already exists
-                if first_loop :
-                    database_for_a_specic_year = NotionDB(page_parent_id=page_year.page_id, db_title=f"{annee.upper()} - Calendrier des cours [{short_current_year_interval}]", db_emoji="📆")
-                    database_for_a_specic_year.add_columns_for_class(annee)
-                    database_for_a_specic_year.save_as_a_new_db()
-                else:
-                    pass
+                database_for_a_specic_year = NotionDB(page_parent_id=page_year.page_id, db_title=f"{annee.upper()} - Calendrier des cours [{short_current_year_interval}]", db_emoji="📆")
+                database_for_a_specic_year.add_columns_for_class(annee)
+                database_for_a_specic_year.save_as_a_new_db()
+          
 
                 # Create a page for each class in each year
                 for classe in config_dict['niveaux'][niveau][annee]["classes"]:
                         
                         # Check that the class is not empty
                         if not config_dict['niveaux'][niveau][annee]["classes"][classe]["nb_eleves"] == 0:
+                            # Add all rows for a class into the database
+                            database_for_a_specic_year.add_all_rows_for_a_class(annee, classe, config)
+
+                            # Create page for a class
                             title = "Cours d'informatique" if niveau in ["gymnase", "ecg"] else ""
                             class_info = config_dict['niveaux'][niveau][annee]["classes"][classe]
                             general_info = config_dict['niveaux'][niveau][annee]["infos_generales"]

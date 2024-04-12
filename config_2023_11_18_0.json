@@ -1,6 +1,6 @@
 {
     "infos_generales": {
-        "lundi_semaine_0": "2024-08-22",
+        "lundi_semaine_0": "2024-08-19",
         "vacances": {
             "automne": {
                 "date_debut": "2024-10-14",
@@ -58,14 +58,14 @@
                         "nb_eleves": 20,
                         "cours_1": {
                             "jour": "lundi",
-                            "heure_debut": "08:00",
-                            "heure_fin": "09:00",
+                            "heure_debut": "08:10",
+                            "heure_fin": "08:55",
                             "salle": "101"
                         },
                         "cours_2": {
                             "jour": "vendredi",
                             "heure_debut": "08:00",
-                            "heure_fin": "09:00",
+                            "heure_fin": "09:45",
                             "salle": "202"
                         }
                     },

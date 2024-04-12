@@ -3,15 +3,11 @@ import os
 import pprint
 from datetime import *
 from datetime import datetime, timezone
-
 import requests
 from dotenv import load_dotenv
-
 from config.config import Config
 from notion import notion_db, notion_page
 from ui.app import *
-from ui.menu import *
-from utils import *
 
 
 def main():
