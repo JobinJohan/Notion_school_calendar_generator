@@ -177,12 +177,6 @@ class NotionDB:
                     ("rich_text", "Remarque", [{"name": "Remarque de test"}]),
                     ("number", "Série de semaine", "number")
                 ]
-
-            case "test":
-                columns= [
-                    ("title", "Nom"),
-                    ("url", "Site")
-                ]
             case _:
                 return None
 
@@ -335,6 +329,7 @@ class NotionDB:
         """Add all rows for a class according to the year and the class name.
         :param year: The year of the class (1gy, 2gy, 1ecg, 2ecg, 2ec, 3ec).
         :param class_name: The name of the class.
+        :param config: The configuration.
         """
 
         # Global information
@@ -342,65 +337,52 @@ class NotionDB:
         monday_week_0 = config_dict["infos_generales"]["lundi_semaine_0"]
         number_of_weeks_in_year = 45
 
-        if year == "1gy":
-            
-            counter_group_week = 0
-            for week_number in range(number_of_weeks_in_year):
+        # Add rows for each week            
+        counter_group_week = 0
+        for week_number in range(number_of_weeks_in_year):
 
-                # Get the day of the course
-                day_course_1 = config_dict["niveaux"]["gymnase"][year]["classes"][class_name]["cours_1"]["jour"]
-                day_course_2 = config_dict["niveaux"]["gymnase"][year]["classes"][class_name]["cours_2"]["jour"]
+            # Get the day of the course
+            ecole = "gymnase" if "gy" in year else "ecg" if "ecg" in year else "ec"
+            day_course_1 = config_dict["niveaux"][ecole][year]["classes"][class_name]["cours_1"]["jour"]
+            day_course_2 = config_dict["niveaux"][ecole][year]["classes"][class_name]["cours_2"]["jour"]
 
-                # Compute the nth day during which the course will take place 
-                nth_day_course_1 = day_to_value(day_course_1)
+            # Compute the nth day during which the course will take place
+            nth_day_course_1 = day_to_value(day_course_1)
+            if day_course_2:
                 nth_day_course_2 = day_to_value(day_course_2)
 
-                # Compute the date of the course
-                date_course_1 = datetime.datetime.strftime(datetime.datetime.strptime(monday_week_0, "%Y-%m-%d") + datetime.timedelta(days=nth_day_course_1 + 7*week_number), "%Y-%m-%d")
-                date_course_2 = datetime.datetime.strftime(datetime.datetime.strptime(monday_week_0, "%Y-%m-%d") + datetime.timedelta(days=nth_day_course_2 + 7*week_number), "%Y-%m-%d")
+            # Compute the date of the course
+            date_course_1 = datetime.datetime.strftime(datetime.datetime.strptime(monday_week_0, "%Y-%m-%d") + datetime.timedelta(days=nth_day_course_1 + 7 * week_number), "%Y-%m-%d")
+            if day_course_2:
+                date_course_2 = datetime.datetime.strftime(datetime.datetime.strptime(monday_week_0, "%Y-%m-%d") + datetime.timedelta(days=nth_day_course_2 + 7 * week_number), "%Y-%m-%d")
 
-                # Compute the duration of the course
-                start_course_1 = config_dict["niveaux"]["gymnase"][year]["classes"][class_name]["cours_1"]["heure_debut"]
-                end_course_1 = config_dict["niveaux"]["gymnase"][year]["classes"][class_name]["cours_1"]["heure_fin"]
-                duration_course_1 = date_to_course_duration(config_dict["infos_generales"], date_course_1, start_course_1, end_course_1)
+            # Compute the duration of the course
+            start_course_1 = config_dict["niveaux"][ecole][year]["classes"][class_name]["cours_1"]["heure_debut"]
+            end_course_1 = config_dict["niveaux"][ecole][year]["classes"][class_name]["cours_1"]["heure_fin"]
+            duration_course_1 = date_to_course_duration(config_dict["infos_generales"], date_course_1, start_course_1, end_course_1)
 
-                start_course_2 = config_dict["niveaux"]["gymnase"][year]["classes"][class_name]["cours_2"]["heure_debut"]
-                end_course_2 = config_dict["niveaux"]["gymnase"][year]["classes"][class_name]["cours_2"]["heure_fin"]
+            if day_course_2:
+                start_course_2 = config_dict["niveaux"][ecole][year]["classes"][class_name]["cours_2"]["heure_debut"]
+                end_course_2 = config_dict["niveaux"][ecole][year]["classes"][class_name]["cours_2"]["heure_fin"]
                 duration_course_2 = date_to_course_duration(config_dict["infos_generales"], date_course_2, start_course_2, end_course_2)
 
-                modality_course_1 = date_is_holiday(config_dict["infos_generales"], date_course_1)[1]
+            modality_course_1 = date_is_holiday(config_dict["infos_generales"], date_course_1)[1]
+            modality_course_2 = [""]
+            if day_course_2:
                 modality_course_2 = date_is_holiday(config_dict["infos_generales"], date_course_2)[1]
 
-                # Add a row for each course in the week
-                self.add_default_row_for_class(class_name.upper(), week_number, date_course_1 , duration_course_1, [], modality_course_1, [], math.ceil(counter_group_week / 4))
+            # Add a row for each course in the week
+            self.add_default_row_for_class(class_name.upper(), week_number, date_course_1 , duration_course_1, [], modality_course_1, [], math.ceil(counter_group_week / 4))
+            if day_course_2:
                 self.add_default_row_for_class(class_name.upper(), week_number, date_course_2 , duration_course_2, [], modality_course_2, [], math.ceil(counter_group_week / 4))
 
-                # Ignore the holidays week to create the group of 4 weeks
-                print(modality_course_1, modality_course_2)
-                if  "⛱ Vacances" in modality_course_1 and "⛱ Vacances" in modality_course_2:
-                    counter_group_week += 0
-                else:
-                    counter_group_week += 1
-    
+            # Ignore the holidays week to create the group of 4 weeks
+            if  "⛱ Vacances" in modality_course_1 and "⛱ Vacances" in modality_course_2:
+                counter_group_week += 0
+            else:
+                counter_group_week += 1
 
-        
-        elif year == "2gy":
-            pass
-
-        elif year == "1ecg":
-            pass
-
-        elif year == "2ecg":
-            pass
-
-        elif year == "2ec":
-            pass
-
-        elif year == "3ec":
-            pass
-            
-        else:
-            return None
+        return None
 
 
     def add_default_row_for_class(self, class_name: "str", nb_week: int, date_lesson: str,

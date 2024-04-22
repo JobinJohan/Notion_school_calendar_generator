@@ -64,39 +64,39 @@
                         },
                         "cours_2": {
                             "jour": "vendredi",
-                            "heure_debut": "08:00",
+                            "heure_debut": "08:10",
                             "heure_fin": "09:45",
                             "salle": "202"
                         }
                     },
                     "1gy2": {
-                        "nb_eleves": 18,
+                        "nb_eleves": 0,
                         "cours_1": {
-                            "jour": "mardi",
-                            "heure_debut": "08:00",
-                            "heure_fin": "09:00",
-                            "salle": "101"
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
                         },
                         "cours_2": {
-                            "jour": "mercredi",
-                            "heure_debut": "08:00",
-                            "heure_fin": "09:00",
-                            "salle": "102"
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
                         }
                     },
                     "1gy3": {
-                        "nb_eleves": 25,
+                        "nb_eleves": 0,
                         "cours_1": {
-                            "jour": "jeudi",
-                            "heure_debut": "08:00",
-                            "heure_fin": "09:00",
-                            "salle": "102"
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
                         },
                         "cours_2": {
-                            "jour": "vendredi",
-                            "heure_debut": "08:00",
-                            "heure_fin": "09:00",
-                            "salle": "100"
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
                         }
                     },
                     "1gy4": {
@@ -276,30 +276,30 @@
                         "nb_eleves": 18,
                         "cours_1": {
                             "jour": "mardi",
-                            "heure_debut": "08:00",
-                            "heure_fin": "09:00",
+                            "heure_debut": "08:10",
+                            "heure_fin": "08:55",
                             "salle": "101"
                         },
                         "cours_2": {
                             "jour": "jeudi",
-                            "heure_debut": "08:00",
-                            "heure_fin": "09:00",
+                            "heure_debut": "08:10",
+                            "heure_fin": "09:45",
                             "salle": "202"
                         }
                     },
                     "2gy2": {
-                        "nb_eleves": 12,
+                        "nb_eleves": 0,
                         "cours_1": {
-                            "jour": "mercredi",
-                            "heure_debut": "09:00",
-                            "heure_fin": "10:00",
-                            "salle": "101"
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
                         },
                         "cours_2": {
-                            "jour": "jeudi",
-                            "heure_debut": "10:00",
-                            "heure_fin": "11:00",
-                            "salle": "102"
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
                         }
                     },
                     "2gy3": {
@@ -493,18 +493,18 @@
                 },
                 "classes": {
                     "1ecg1": {
-                        "nb_eleves": 0,
+                        "nb_eleves": 25,
                         "cours_1": {
-                            "jour": "",
-                            "heure_debut": "",
-                            "heure_fin": "",
-                            "salle": ""
+                            "jour": "mercredi",
+                            "heure_debut": "10:05",
+                            "heure_fin": "10:50",
+                            "salle": "101"
                         },
                         "cours_2": {
-                            "jour": "",
-                            "heure_debut": "",
-                            "heure_fin": "",
-                            "salle": ""
+                            "jour": "vendredi",
+                            "heure_debut": "11:45",
+                            "heure_fin": "12:30",
+                            "salle": "202"
                         }
                     },
                     "1ecg2": {
@@ -726,18 +726,18 @@
                         }
                     },
                     "2ecg2": {
-                        "nb_eleves": 15,
+                        "nb_eleves": 0,
                         "cours_1": {
-                            "jour": "jeudi",
-                            "heure_debut": "11:00",
-                            "heure_fin": "12:00",
-                            "salle": "102"
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
                         },
                         "cours_2": {
-                            "jour": "vendredi",
-                            "heure_debut": "14:00",
-                            "heure_fin": "15:00",
-                            "salle": "202"
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
                         }
                     },
                     "2ecg3": {
@@ -934,15 +934,15 @@
                         "nb_eleves": 15,
                         "cours_1": {
                             "jour": "lundi",
-                            "heure_debut": "12:00",
-                            "heure_fin": "13:00",
+                            "heure_debut": "12:35",
+                            "heure_fin": "13:20",
                             "salle": "202"
                         },
                         "cours_2": {
-                            "jour": "mardi",
+                            "jour": "",
                             "heure_debut": "",
                             "heure_fin": "",
-                            "salle": "101"
+                            "salle": ""
                         }
                     },
                     "2ec2": {
@@ -992,10 +992,10 @@
                             "salle": "100"
                         },
                         "cours_2": {
-                            "jour": "jeudi",
-                            "heure_debut": "10:00",
-                            "heure_fin": "10:45",
-                            "salle": "100"
+                            "jour": "",
+                            "heure_debut": "",
+                            "heure_fin": "",
+                            "salle": ""
                         }
                     },
                     "3ec2": {
